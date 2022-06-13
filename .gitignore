@@ -1,4 +1,2 @@
 lib/mappingnode
 lib/sequencenode
-lib/test/mappingnode.go
-lib/test/sequencenode.go

@@ -2,7 +2,7 @@ package main_test
 
 import (
 	"testing"
-	"updateConfig/lib/test"
+	"updateConfig/lib/scalarnode/test"
 )
 
 func TestAll(t *testing.T) {
