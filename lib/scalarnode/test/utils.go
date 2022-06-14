@@ -6,8 +6,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const arch = "result"
-
 func stringToNodesArray(str string) []*yaml.Node {
 	node := new(yaml.Node)
 

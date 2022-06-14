@@ -1,5 +1,7 @@
 package test
 
+const arch = "result"
+
 // arrayTestEqualScalarNode: node, tmp, expected result
 var arrayTestEqualScalarNode = [...][3]string{
 	[3]string{`name: rustam`, `name: `, `name: rustam`},
