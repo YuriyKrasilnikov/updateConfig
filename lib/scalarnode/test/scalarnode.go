@@ -11,14 +11,8 @@ import (
 
 // позитивный тест возвращаемого значения
 func TestEqualScalarNode(t *testing.T) {
-	// testArray: node, tmp, expected result
-	testsArray := [...][3]string{
-		[3]string{`name: rustam`, `name: `, `name: rustam`},
-		[3]string{` name:     rustam`, `name: `, `name: rustam`},
-		[3]string{`name: rustam`, `name: sergey`, `name: sergey`},
-	}
 
-	for _, test := range testsArray {
+	for _, test := range arrayTestEqualScalarNode {
 		sampleNodes := stringToNodesArray(test[0])
 		tmpNodes := stringToNodesArray(test[1])
 		expectedNodes := stringToNodesArray(test[2])
@@ -49,14 +43,8 @@ func TestEqualScalarNode(t *testing.T) {
 
 // негативный тест возвращаемого значения
 func TestNotEqualScalarNode(t *testing.T) {
-	// testArray: node, tmp, result
-	testsArray := [...][3]string{
-		[3]string{`name: rustam`, `name: `, `name: sergey`},
-		[3]string{`name: rustam`, `name: `, `name: `},
-		[3]string{`name: rustam`, `name: sergey`, `name: rustam`},
-	}
 
-	for _, test := range testsArray {
+	for _, test := range arrayTestNotEqualScalarNode {
 		sampleNodes := stringToNodesArray(test[0])
 		tmpNodes := stringToNodesArray(test[1])
 		expectedNodes := stringToNodesArray(test[2])
@@ -86,67 +74,8 @@ func TestNotEqualScalarNode(t *testing.T) {
 
 // тест на ошибку при неправильном типе
 func TestErrorKindScalarNode(t *testing.T) {
-	// testArray: node, tmp
-	testsArray := [...][2]string{
-		[2]string{
-			`
-name:
-- rustam
-`,
-			`
-name: 
-`,
-		},
-		[2]string{
-			`
-rustam:
- job: Developer
-`,
-			`
-name: 
-`,
-		},
-		[2]string{
-			`
-name:
-- rustam
-`,
-			`
-name: 
-- rustam
-`,
-		},
-		[2]string{
-			`
-rustam:
-	job: Developer
-`,
-			`
-rustam:
-	job: Developer
-`,
-		},
-		[2]string{
-			`
-name: rustam
-`,
-			`
-name: 
-- rustam
-`,
-		},
-		[2]string{
-			`
-name: rustam
-`,
-			`
-rustam:
-	job: Developer
-`,
-		},
-	}
 
-	for _, test := range testsArray {
+	for _, test := range arrayTestErrorKindScalarNode {
 		sampleNodes := stringToNodesArray(test[0])
 		tmpNodes := stringToNodesArray(test[1])
 
@@ -161,29 +90,8 @@ rustam:
 
 // тест на ошибку при неправильном количестве в массиве
 func TestErrorLenScalarNode(t *testing.T) {
-	// testArray: node, tmp
-	testsArray := [...][2]string{
-		[2]string{
-			`
-name: rustam
-job: developer
-`,
-			`
-name: 
-`,
-		},
-		[2]string{
-			`
-name: rustam
-`,
-			`
-name: 
-job: 
-`,
-		},
-	}
 
-	for _, test := range testsArray {
+	for _, test := range arrayTestErrorLenScalarNode {
 		sampleNodes := stringToNodesArray(test[0])
 		tmpNodes := stringToNodesArray(test[1])
 
