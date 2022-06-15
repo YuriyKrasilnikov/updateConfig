@@ -1,4 +1,4 @@
-package test
+package scalarnode
 
 import (
 	"log"
