@@ -1,6 +1,6 @@
 package utils
 
-// универсальный обход дерева
+// обход дерева в ширину
 func traversalTreeBF[T any](arr []*T, app func(*T) bool, getNext func(*T) []*T) {
 	for len(arr) > 0 {
 		nextArr := []*T{}

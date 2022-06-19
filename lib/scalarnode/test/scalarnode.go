@@ -13,31 +13,32 @@ import (
 func TestEqualScalarNode(t *testing.T) {
 
 	for _, test := range arrayTestEqualScalarNode {
-		sampleNodes := stringToNodesArray(test[0])
-		tmpNodes := stringToNodesArray(test[1])
-		expectedNodes := stringToNodesArray(test[2])
+		t.Run(test.CaseName, func(t *testing.T) {
+			sampleNodes := stringToNodesArray(test.Sample)
+			tmpNodes := stringToNodesArray(test.Temp)
+			expectedNodes := stringToNodesArray(test.Expected)
 
-		//надо обнулять, а то проверяем еще и line и collumn
-		ignoreLineColumn(expectedNodes)
-		//добавим проверку на правильный Anchor
-		addAnchor(expectedNodes, arch)
+			//надо обнулять, а то проверяем еще и line и collumn
+			ignoreLineColumn(expectedNodes)
+			//добавим проверку на правильный Anchor
+			addAnchor(expectedNodes, arch)
 
-		resultNodes, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
-		if err != nil {
-			log.Fatalf("error: %v", err)
-		}
+			resultNodes, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
+			if err != nil {
+				log.Fatalf("error: %v", err)
+			}
 
-		//надо обнулять, а то проверяем еще и line и collumn
-		ignoreLineColumn(resultNodes)
+			//надо обнулять, а то проверяем еще и line и collumn
+			ignoreLineColumn(resultNodes)
 
-		assert.Equalf(
-			t,
-			resultNodes,
-			expectedNodes,
-			"Diff in \nInfo:\nsampleNodes %s,\ntmpNodes %s,\nexpectedNodes %s,\n resultNodes: %s",
-			sampleNodes, tmpNodes, expectedNodes, resultNodes,
-		)
-
+			assert.Equalf(
+				t,
+				resultNodes,
+				expectedNodes,
+				"Diff in \nInfo:\nsampleNodes %s,\ntmpNodes %s,\nexpectedNodes %s,\n resultNodes: %s",
+				sampleNodes, tmpNodes, expectedNodes, resultNodes,
+			)
+		})
 	}
 }
 
@@ -45,30 +46,32 @@ func TestEqualScalarNode(t *testing.T) {
 func TestNotEqualScalarNode(t *testing.T) {
 
 	for _, test := range arrayTestNotEqualScalarNode {
-		sampleNodes := stringToNodesArray(test[0])
-		tmpNodes := stringToNodesArray(test[1])
-		expectedNodes := stringToNodesArray(test[2])
+		t.Run(test.CaseName, func(t *testing.T) {
+			sampleNodes := stringToNodesArray(test.Sample)
+			tmpNodes := stringToNodesArray(test.Temp)
+			expectedNodes := stringToNodesArray(test.Expected)
 
-		//надо обнулять, а то проверяем еще и line и collumn
-		ignoreLineColumn(expectedNodes)
-		//добавим проверку на правильный Anchor
-		addAnchor(expectedNodes, arch)
+			//надо обнулять, а то проверяем еще и line и collumn
+			ignoreLineColumn(expectedNodes)
+			//добавим проверку на правильный Anchor
+			addAnchor(expectedNodes, arch)
 
-		resultNodes, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
-		if err != nil {
-			log.Fatalf("error: %v", err)
-		}
+			resultNodes, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
+			if err != nil {
+				log.Fatalf("error: %v", err)
+			}
 
-		//надо обнулять, а то проверяем еще и line и collumn
-		ignoreLineColumn(resultNodes)
+			//надо обнулять, а то проверяем еще и line и collumn
+			ignoreLineColumn(resultNodes)
 
-		assert.NotEqualf(
-			t,
-			resultNodes,
-			expectedNodes,
-			"Diff in \nInfo:\nsampleNodes %s,\ntmpNodes %s,\nexpectedNodes %s,\n resultNodes: %s",
-			sampleNodes, tmpNodes, expectedNodes, resultNodes,
-		)
+			assert.NotEqualf(
+				t,
+				resultNodes,
+				expectedNodes,
+				"Diff in \nInfo:\nsampleNodes %s,\ntmpNodes %s,\nexpectedNodes %s,\n resultNodes: %s",
+				sampleNodes, tmpNodes, expectedNodes, resultNodes,
+			)
+		})
 	}
 }
 
@@ -76,15 +79,17 @@ func TestNotEqualScalarNode(t *testing.T) {
 func TestErrorKindScalarNode(t *testing.T) {
 
 	for _, test := range arrayTestErrorKindScalarNode {
-		sampleNodes := stringToNodesArray(test[0])
-		tmpNodes := stringToNodesArray(test[1])
+		t.Run(test.CaseName, func(t *testing.T) {
+			sampleNodes := stringToNodesArray(test.Sample)
+			tmpNodes := stringToNodesArray(test.Temp)
 
-		_, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
+			_, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
 
-		assert.Error(
-			t,
-			err,
-		)
+			assert.Error(
+				t,
+				err,
+			)
+		})
 	}
 }
 
@@ -92,14 +97,16 @@ func TestErrorKindScalarNode(t *testing.T) {
 func TestErrorLenScalarNode(t *testing.T) {
 
 	for _, test := range arrayTestErrorLenScalarNode {
-		sampleNodes := stringToNodesArray(test[0])
-		tmpNodes := stringToNodesArray(test[1])
+		t.Run(test.CaseName, func(t *testing.T) {
+			sampleNodes := stringToNodesArray(test.Sample)
+			tmpNodes := stringToNodesArray(test.Temp)
 
-		_, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
+			_, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
 
-		assert.Error(
-			t,
-			err,
-		)
+			assert.Error(
+				t,
+				err,
+			)
+		})
 	}
 }

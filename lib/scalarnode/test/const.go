@@ -3,22 +3,36 @@ package test
 const arch = "result"
 
 // arrayTestEqualScalarNode: node, tmp, expected result
-var arrayTestEqualScalarNode = [...][3]string{
-	[3]string{`name: rustam`, `name: `, `name: rustam`},
-	[3]string{` name:     rustam`, `name: `, `name: rustam`},
-	[3]string{`name: rustam`, `name: sergey`, `name: sergey`},
+var arrayTestEqualScalarNode = [...]struct {
+	CaseName string
+	Sample   string
+	Temp     string
+	Expected string
+}{
+	{"case1", `name: rustam`, `name: `, `name: rustam`},
+	{"case2", ` name:     rustam`, `name: `, `name: rustam`},
+	{"case3", `name: rustam`, `name: sergey`, `name: sergey`},
 }
 
 // arrayTestNotEqualScalarNode: node, tmp, result
-var arrayTestNotEqualScalarNode = [...][3]string{
-	[3]string{`name: rustam`, `name: `, `name: sergey`},
-	[3]string{`name: rustam`, `name: `, `name: `},
-	[3]string{`name: rustam`, `name: sergey`, `name: rustam`},
+var arrayTestNotEqualScalarNode = [...]struct {
+	CaseName string
+	Sample   string
+	Temp     string
+	Expected string
+}{
+	{"case1", `name: rustam`, `name: `, `name: sergey`},
+	{"case2", `name: rustam`, `name: `, `name: `},
+	{"case3", `name: rustam`, `name: sergey`, `name: rustam`},
 }
 
 // arrayTestErrorKindScalarNode: node, tmp
-var arrayTestErrorKindScalarNode = [...][2]string{
-	[2]string{
+var arrayTestErrorKindScalarNode = [...]struct {
+	CaseName string
+	Sample   string
+	Temp     string
+}{
+	{"case1",
 		`
 name:
 - rustam
@@ -27,7 +41,7 @@ name:
 name: 
 `,
 	},
-	[2]string{
+	{"case2",
 		`
 rustam:
  job: Developer
@@ -36,7 +50,7 @@ rustam:
 name: 
 `,
 	},
-	[2]string{
+	{"case3",
 		`
 name:
 - rustam
@@ -46,7 +60,7 @@ name:
 - rustam
 `,
 	},
-	[2]string{
+	{"case4",
 		`
 rustam:
 	job: Developer
@@ -56,7 +70,7 @@ rustam:
 	job: Developer
 `,
 	},
-	[2]string{
+	{"case5",
 		`
 name: rustam
 `,
@@ -65,7 +79,7 @@ name:
 - rustam
 `,
 	},
-	[2]string{
+	{"case6",
 		`
 name: rustam
 `,
@@ -77,8 +91,12 @@ rustam:
 }
 
 // arrayTestErrorLenScalarNode: node, tmp
-var arrayTestErrorLenScalarNode = [...][2]string{
-	[2]string{
+var arrayTestErrorLenScalarNode = [...]struct {
+	CaseName string
+	Sample   string
+	Temp     string
+}{
+	{"case1",
 		`
 name: rustam
 job: developer
@@ -87,7 +105,7 @@ job: developer
 name: 
 `,
 	},
-	[2]string{
+	{"case2",
 		`
 name: rustam
 `,
