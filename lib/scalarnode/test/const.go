@@ -2,32 +2,34 @@ package test
 
 const arch = "Result"
 
-// arrayTestPositiveScalarNode: node, tmp, expected result
 var arrayTestPositiveScalarNode = [...]struct {
 	CaseName string
 	Sample   string
 	Temp     string
 	Expected string
 }{
-	{
-		"case1",
+	{"case1: Sample full and temp empty",
 		`&Sample name: &Sample rustam`,
 		`&Temp name: &Temp`,
 		`&Result name: &Result rustam`,
-	}, {
-		"case2",
+	},
+	{"case2: Sample empty and temp full",
 		`&Sample name: &Sample`,
 		`&Temp name: &Temp rustam`,
 		`&Result name: &Result rustam`,
-	}, {
-		"case3",
+	},
+	{"case3: Sample full and temp full",
 		`&Sample name: &Sample rustam`,
 		`&Temp name: &Temp sergey`,
 		`&Result name: &Result sergey`,
 	},
+	{"case3: Sample empty and temp empty",
+		`&Sample name: &Sample`,
+		`&Temp name: &Temp`,
+		`&Result name: &Result`,
+	},
 }
 
-// arrayTestNegativeScalarNode: node, tmp, result
 var arrayTestNegativeScalarNode = [...]struct {
 	CaseName string
 	Sample   string
@@ -35,112 +37,97 @@ var arrayTestNegativeScalarNode = [...]struct {
 	Expected string
 }{
 	{
-		"case1",
-		`&Sample name: &Sample rustam`,
-		`&Temp name: &Temp`,
-		`&Result name: &Result sergey`,
-	}, {
-		"case2",
-		`&Sample name: &Sample rustam`,
-		`&Temp name: &Temp`,
-		`&Result name: &Result`,
-	}, {
-		"case3",
+		"case1: Sample full and temp full, but result incorrect",
 		`&Sample name: &Sample rustam`,
 		`&Temp name: &Temp sergey`,
 		`&Result name: &Result rustam`,
 	},
 }
 
-// arrayTestErrorKindScalarNode: node, tmp
 var arrayTestErrorKindScalarNode = [...]struct {
 	CaseName string
 	Sample   string
 	Temp     string
 }{
 	{
-		"case1",
+		"case1: Sample is sequence and temp is scalar",
 		`
 &Sample name: &Sample
-	- &Sample rustam
+ - &Sample rustam
 `,
 		`
 &Temp name: &Temp 
 `,
 	}, {
-		"case2",
+		"case2: Sample is map and temp is scalar",
 		`
 &Sample rustam: &Sample
-	&Sample job: &Sample Developer
+ &Sample job: &Sample Developer
 `,
 		`
 &Temp name: &Temp
 `,
 	}, {
-		"case3",
+		"case3: Sample is sequence and temp is sequence",
 		`
 &Sample name: &Sample
-	- &Sample rustam
+ - &Sample rustam
 `,
 		`
 &Temp name: &Temp
-	- &Temp rustam
+ - &Temp rustam
 `,
 	}, {
-		"case4",
+		"case4: Sample is map and temp is map",
 		`
 &Sample rustam: &Sample
-	&Sample job: &Sample Developer
+ &Sample job: &Sample Developer
 `,
 		`
 &Temp rustam: &Temp
-	&Temp job: &Temp Developer
+ &Temp job: &Temp Developer
 `,
 	}, {
-		"case5",
+		"case5: Sample is scalar and temp is full sequence",
 		`
 &Sample name: &Sample rustam
 `,
 		`
 &Temp name: &Temp
-	- &Temp rustam
+ - &Temp rustam
 `,
 	}, {
-		"case6",
+		"case6: Sample is scalar and temp is full map",
 		`
 &Sample name: &Sample rustam
 `,
 		`
 &Temp rustam: &Temp
-	&Temp job: &Temp Developer
+ &Temp job: &Temp Developer
 `,
 	},
 }
 
-// arrayTestErrorLenScalarNode: node, tmp
 var arrayTestErrorLenScalarNode = [...]struct {
 	CaseName string
 	Sample   string
 	Temp     string
 }{
-	{
-		"case1",
-		`
-&Sample name: &Sample rustam
-&Sample job: &Sample developer
-`,
-		`
-&Temp name: &Temp
-`,
-	}, {
-		"case2",
-		`
-&Sample name: &Sample rustam
-`,
-		`
-&Temp name: &Temp
-&Temp job: &Temp
-`,
+	{"case1: Sample has more then 1 scalar and temp has 1 scalar",
+		`&Sample name: &Sample rustam
+&Sample job: &Sample developer`,
+		`&Temp name: &Temp`,
+	},
+	{"case2: Sample has 1 scalar and temp has more then 1 scalar",
+		`&Sample name: &Sample rustam`,
+		`&Temp name: &Temp
+&Temp job: &Temp`,
+	},
+	{"case3: Sample has more then 1 scalar and temp has more then 1 scalar",
+		`&Sample name: &Sample rustam
+&Sample job: &Sample developer`,
+		`&Temp name: &Temp
+&Temp job: &Temp`,
 	},
 }
 
@@ -150,15 +137,15 @@ var arrayTestErrorNameScalarNode = [...]struct {
 	Temp     string
 }{
 	{
-		"case1",
+		"case1: Diff name for sample full scalar and temp empty scalar",
 		`&Sample name: &Sample rustam`,
 		`&Temp rustam: &Temp`,
 	}, {
-		"case2",
+		"case2: Diff name for sample empty scalar and temp full scalar",
 		`&Sample name: &Sample`,
 		`&Temp rustam: &Temp name`,
 	}, {
-		"case3",
+		"case3: Diff name for sample full scalar and temp full scalar",
 		`&Sample rustam: &Sample name`,
 		`&Temp sergey: &Temp name`,
 	},
