@@ -20,8 +20,6 @@ func TestEqualScalarNode(t *testing.T) {
 
 			//надо обнулять, а то проверяем еще и line и collumn
 			ignoreLineColumn(expectedNodes)
-			//добавим проверку на правильный Anchor
-			addAnchor(expectedNodes, arch)
 
 			resultNodes, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
 			if err != nil {
@@ -53,8 +51,6 @@ func TestNotEqualScalarNode(t *testing.T) {
 
 			//надо обнулять, а то проверяем еще и line и collumn
 			ignoreLineColumn(expectedNodes)
-			//добавим проверку на правильный Anchor
-			addAnchor(expectedNodes, arch)
 
 			resultNodes, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
 			if err != nil {

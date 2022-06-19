@@ -1,6 +1,6 @@
 package test
 
-const arch = "result"
+const arch = "Result"
 
 // arrayTestEqualScalarNode: node, tmp, expected result
 var arrayTestEqualScalarNode = [...]struct {
@@ -9,9 +9,22 @@ var arrayTestEqualScalarNode = [...]struct {
 	Temp     string
 	Expected string
 }{
-	{"case1", `name: rustam`, `name: `, `name: rustam`},
-	{"case2", ` name:     rustam`, `name: `, `name: rustam`},
-	{"case3", `name: rustam`, `name: sergey`, `name: sergey`},
+	{
+		"case1",
+		`&Sample name: &Sample rustam`,
+		`&Temp name: &Temp`,
+		`&Result name: &Result rustam`,
+	}, {
+		"case2",
+		`&Sample name: &Sample`,
+		`&Temp name: &Temp rustam`,
+		`&Result name: &Result rustam`,
+	}, {
+		"case3",
+		`&Sample name: &Sample rustam`,
+		`&Temp name: &Temp sergey`,
+		`&Result name: &Result sergey`,
+	},
 }
 
 // arrayTestNotEqualScalarNode: node, tmp, result
@@ -21,9 +34,22 @@ var arrayTestNotEqualScalarNode = [...]struct {
 	Temp     string
 	Expected string
 }{
-	{"case1", `name: rustam`, `name: `, `name: sergey`},
-	{"case2", `name: rustam`, `name: `, `name: `},
-	{"case3", `name: rustam`, `name: sergey`, `name: rustam`},
+	{
+		"case1",
+		`&Sample name: &Sample rustam`,
+		`&Temp name: &Temp`,
+		`&Result name: &Result sergey`,
+	}, {
+		"case2",
+		`&Sample name: &Sample rustam`,
+		`&Temp name: &Temp`,
+		`&Result name: &Result`,
+	}, {
+		"case3",
+		`&Sample name: &Sample rustam`,
+		`&Temp name: &Temp sergey`,
+		`&Result name: &Result rustam`,
+	},
 }
 
 // arrayTestErrorKindScalarNode: node, tmp
@@ -32,60 +58,61 @@ var arrayTestErrorKindScalarNode = [...]struct {
 	Sample   string
 	Temp     string
 }{
-	{"case1",
+	{
+		"case1",
 		`
-name:
-- rustam
+&Sample name: &Sample
+	- &Sample rustam
 `,
 		`
-name: 
+&Temp name: &Temp 
 `,
-	},
-	{"case2",
+	}, {
+		"case2",
 		`
-rustam:
- job: Developer
-`,
-		`
-name: 
-`,
-	},
-	{"case3",
-		`
-name:
-- rustam
+&Sample rustam: &Sample
+	&Sample job: &Sample Developer
 `,
 		`
-name: 
-- rustam
+&Temp name: &Temp
 `,
-	},
-	{"case4",
+	}, {
+		"case3",
 		`
-rustam:
-	job: Developer
-`,
-		`
-rustam:
-	job: Developer
-`,
-	},
-	{"case5",
-		`
-name: rustam
+&Sample name: &Sample
+	- &Sample rustam
 `,
 		`
-name: 
-- rustam
+&Temp name: &Temp
+	- &Temp rustam
 `,
-	},
-	{"case6",
+	}, {
+		"case4",
 		`
-name: rustam
+&Sample rustam: &Sample
+	&Sample job: &Sample Developer
 `,
 		`
-rustam:
-	job: Developer
+&Temp rustam: &Temp
+	&Temp job: &Temp Developer
+`,
+	}, {
+		"case5",
+		`
+&Sample name: &Sample rustam
+`,
+		`
+&Temp name: &Temp
+	- &Temp rustam
+`,
+	}, {
+		"case6",
+		`
+&Sample name: &Sample rustam
+`,
+		`
+&Temp rustam: &Temp
+	&Temp job: &Temp Developer
 `,
 	},
 }
@@ -96,22 +123,23 @@ var arrayTestErrorLenScalarNode = [...]struct {
 	Sample   string
 	Temp     string
 }{
-	{"case1",
+	{
+		"case1",
 		`
-name: rustam
-job: developer
+&Sample name: &Sample rustam
+&Sample job: &Sample developer
 `,
 		`
-name: 
+&Temp name: &Temp
 `,
-	},
-	{"case2",
+	}, {
+		"case2",
 		`
-name: rustam
+&Sample name: &Sample rustam
 `,
 		`
-name: 
-job: 
+&Temp name: &Temp
+&Temp job: &Temp
 `,
 	},
 }
