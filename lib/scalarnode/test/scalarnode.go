@@ -10,9 +10,9 @@ import (
 )
 
 // позитивный тест возвращаемого значения
-func TestEqualScalarNode(t *testing.T) {
+func TestPositiveScalarNode(t *testing.T) {
 
-	for _, test := range arrayTestEqualScalarNode {
+	for _, test := range arrayTestPositiveScalarNode {
 		t.Run(test.CaseName, func(t *testing.T) {
 			sampleNodes := stringToNodesArray(test.Sample)
 			tmpNodes := stringToNodesArray(test.Temp)
@@ -41,9 +41,9 @@ func TestEqualScalarNode(t *testing.T) {
 }
 
 // негативный тест возвращаемого значения
-func TestNotEqualScalarNode(t *testing.T) {
+func TestNegativeScalarNode(t *testing.T) {
 
-	for _, test := range arrayTestNotEqualScalarNode {
+	for _, test := range arrayTestNegativeScalarNode {
 		t.Run(test.CaseName, func(t *testing.T) {
 			sampleNodes := stringToNodesArray(test.Sample)
 			tmpNodes := stringToNodesArray(test.Temp)
@@ -93,6 +93,24 @@ func TestErrorKindScalarNode(t *testing.T) {
 func TestErrorLenScalarNode(t *testing.T) {
 
 	for _, test := range arrayTestErrorLenScalarNode {
+		t.Run(test.CaseName, func(t *testing.T) {
+			sampleNodes := stringToNodesArray(test.Sample)
+			tmpNodes := stringToNodesArray(test.Temp)
+
+			_, err := scalarnode.ResultScalarNode(sampleNodes, tmpNodes, arch)
+
+			assert.Error(
+				t,
+				err,
+			)
+		})
+	}
+}
+
+// тест на ошибку при неправильных именах в массиве
+func TestErrorNameScalarNode(t *testing.T) {
+
+	for _, test := range arrayTestErrorNameScalarNode {
 		t.Run(test.CaseName, func(t *testing.T) {
 			sampleNodes := stringToNodesArray(test.Sample)
 			tmpNodes := stringToNodesArray(test.Temp)

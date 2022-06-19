@@ -2,8 +2,8 @@ package test
 
 const arch = "Result"
 
-// arrayTestEqualScalarNode: node, tmp, expected result
-var arrayTestEqualScalarNode = [...]struct {
+// arrayTestPositiveScalarNode: node, tmp, expected result
+var arrayTestPositiveScalarNode = [...]struct {
 	CaseName string
 	Sample   string
 	Temp     string
@@ -27,8 +27,8 @@ var arrayTestEqualScalarNode = [...]struct {
 	},
 }
 
-// arrayTestNotEqualScalarNode: node, tmp, result
-var arrayTestNotEqualScalarNode = [...]struct {
+// arrayTestNegativeScalarNode: node, tmp, result
+var arrayTestNegativeScalarNode = [...]struct {
 	CaseName string
 	Sample   string
 	Temp     string
@@ -141,5 +141,25 @@ var arrayTestErrorLenScalarNode = [...]struct {
 &Temp name: &Temp
 &Temp job: &Temp
 `,
+	},
+}
+
+var arrayTestErrorNameScalarNode = [...]struct {
+	CaseName string
+	Sample   string
+	Temp     string
+}{
+	{
+		"case1",
+		`&Sample name: &Sample rustam`,
+		`&Temp rustam: &Temp`,
+	}, {
+		"case2",
+		`&Sample name: &Sample`,
+		`&Temp rustam: &Temp name`,
+	}, {
+		"case3",
+		`&Sample rustam: &Sample name`,
+		`&Temp sergey: &Temp name`,
 	},
 }
